@@ -1,56 +1,41 @@
 package dev.lonelyteapot.howlong
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.widget.EditText
+import android.widget.DatePicker
 import android.widget.TextView
-import java.text.ParseException
-import java.text.SimpleDateFormat
-import java.util.*
+import androidx.appcompat.app.AppCompatActivity
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
+import java.time.temporal.ChronoUnit
 
 class MainActivity : AppCompatActivity() {
-    lateinit var tvAnswerDays: TextView
-    lateinit var etDate: EditText
+    lateinit var textAnswer: TextView
+    lateinit var textDate: TextView
+    lateinit var datePickerBottom: DatePicker
+    var selectedDate = LocalDate.now()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        this.tvAnswerDays = findViewById(R.id.answerDays)
-        this.etDate = findViewById(R.id.editDate)
+        this.textAnswer = findViewById(R.id.textAnswer)
+        this.textDate = findViewById(R.id.textDate)
+        this.datePickerBottom = findViewById(R.id.datePickerBottom)
 
-        this.etDate.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-                updateDays()
-            }
-
-        })
-
-        updateDays()
-    }
-
-    fun updateDays() {
-        val dateFormat = SimpleDateFormat("dd.MM.yyyy")
-
-        val dateStr = etDate.text.toString()
-        val daysInt = try {
-            val date = dateFormat.parse(dateStr)
-            val today = Date()
-            val elapsedMs = today.time - date.time
-            val elapsedDays = elapsedMs / 1000 / 60 / 60 / 24
-            elapsedDays
-        } catch (exc: ParseException) {
-            0
+        datePickerBottom.setOnDateChangedListener { view, year, month, day ->
+            // DatePicker counts months from 0 for some reason
+            selectedDate = LocalDate.of(year, month+1, day)
+            updateDaysBetween()
         }
 
-        tvAnswerDays.text = daysInt.toString()
+        updateDaysBetween()
+    }
+
+    fun updateDaysBetween() {
+        val today = LocalDate.now()
+        val daysBetween = ChronoUnit.DAYS.between(selectedDate, today)
+        textDate.text = selectedDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG))
+        textAnswer.text = daysBetween.toString()
     }
 }

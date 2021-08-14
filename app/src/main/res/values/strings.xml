@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">How Long</string>
+    <string name="since">since</string>
+    <string name="How_long">How long</string>
+    <string name="days">days</string>
+    <string name="_qmark">\?</string>
 </resources>

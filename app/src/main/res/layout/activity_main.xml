@@ -6,80 +6,112 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/textHowLong"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="How long"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.16" />
-
     <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:orientation="horizontal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/datePickerBottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textHowLong">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textSinceUntil"
+        <LinearLayout
+            android:id="@+id/layoutQuestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="2dp"
-            android:text="since"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/editDate"
+            <TextView
+                android:id="@+id/textHowLong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/How_long"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+            <LinearLayout
+                android:id="@+id/layoutQuestionRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textSinceUntil"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="1dp"
+                    android:text="@string/since"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                <TextView
+                    android:id="@+id/textDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:paddingTop="0dp"
+                    android:paddingBottom="6dp"
+                    android:selectAllOnFocus="true"
+                    android:singleLine="true"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textIsSelectable="true"
+                    android:theme="@style/Widget.AppCompat.EditText"
+                    android:translationY="3dp"
+                    tools:ignore="TouchTargetSizeCheck"
+                    tools:text="August 14, 2021" />
+
+                <TextView
+                    android:id="@+id/textQMark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/_qmark"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:translationX="-2dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutAnswer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="01.01.2001"
-            android:inputType="date"
-            android:maxLength="10"
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textQMark"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:text="?"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            <TextView
+                android:id="@+id/textAnswer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textSize="52sp"
+                tools:text="0" />
+
+            <TextView
+                android:id="@+id/textDays"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/days"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textDays"
-        android:layout_width="wrap_content"
+    <DatePicker
+        android:id="@+id/datePickerBottom"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginBottom="10dp"
-        android:text="days"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintBottom_toBottomOf="@+id/answerDays"
-        app:layout_constraintStart_toEndOf="@+id/answerDays" />
-
-    <TextView
-        android:id="@+id/answerDays"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="0"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textSize="48sp"
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner"
+        android:spinnersShown="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.35" />
+        app:layout_constraintStart_toStartOf="parent">
+
+    </DatePicker>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
